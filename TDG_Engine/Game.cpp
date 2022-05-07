@@ -35,8 +35,6 @@ Game::Game(const char* title, int x, int y, int w, int h, bool fullscreen) {
     
 }
 
-Game::~Game() = default;
-
 void Game::HandleEvents() {
     SDL_Event e;
     while(SDL_PollEvent(&e)) {
