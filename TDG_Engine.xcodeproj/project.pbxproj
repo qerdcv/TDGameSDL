@@ -12,7 +12,10 @@
 		A3966C9E2822F045004FBCE8 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3966C9C2822EF81004FBCE8 /* SDL2_image.framework */; };
 		A3966CA12822F046004FBCE8 /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3090A912822CDC9005131B1 /* SDL2.framework */; };
 		A39F631128264C3100197BBD /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A39F630F28264C3100197BBD /* Map.cpp */; };
-		A39F631C282696E000197BBD /* ECS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A39F631A282696E000197BBD /* ECS.cpp */; };
+		A39F631F2826A39500197BBD /* Components.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A39F631D2826A39500197BBD /* Components.cpp */; };
+		A39F63292826BA1800197BBD /* SpriteComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A39F63272826BA1800197BBD /* SpriteComponent.cpp */; };
+		A39F632C2826BA2600197BBD /* PositionComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A39F632A2826BA2600197BBD /* PositionComponent.cpp */; };
+		A39F632E2826BB8500197BBD /* ECS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A39F632D2826BB8500197BBD /* ECS.cpp */; };
 		A3D887A52823C16600F10A7B /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3D887A32823C16600F10A7B /* TextureManager.cpp */; };
 		A3FB459D2823F85200A3D204 /* GameObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A3FB459B2823F85200A3D204 /* GameObject.cpp */; };
 /* End PBXBuildFile section */
@@ -43,8 +46,14 @@
 		A39F63172826950800197BBD /* water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = water.png; sourceTree = "<group>"; };
 		A39F63182826950800197BBD /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
 		A39F63192826950800197BBD /* dirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dirt.png; sourceTree = "<group>"; };
-		A39F631A282696E000197BBD /* ECS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ECS.cpp; sourceTree = "<group>"; };
 		A39F631B282696E000197BBD /* ECS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ECS.hpp; sourceTree = "<group>"; };
+		A39F631D2826A39500197BBD /* Components.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Components.cpp; sourceTree = "<group>"; };
+		A39F631E2826A39500197BBD /* Components.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Components.hpp; sourceTree = "<group>"; };
+		A39F63272826BA1800197BBD /* SpriteComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = SpriteComponent.cpp; sourceTree = "<group>"; };
+		A39F63282826BA1800197BBD /* SpriteComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = SpriteComponent.hpp; sourceTree = "<group>"; };
+		A39F632A2826BA2600197BBD /* PositionComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = PositionComponent.cpp; sourceTree = "<group>"; };
+		A39F632B2826BA2600197BBD /* PositionComponent.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = PositionComponent.hpp; sourceTree = "<group>"; };
+		A39F632D2826BB8500197BBD /* ECS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ECS.cpp; sourceTree = "<group>"; };
 		A3D887A32823C16600F10A7B /* TextureManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TextureManager.cpp; sourceTree = "<group>"; };
 		A3D887A42823C16600F10A7B /* TextureManager.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = TextureManager.hpp; sourceTree = "<group>"; };
 		A3FB459B2823F85200A3D204 /* GameObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GameObject.cpp; sourceTree = "<group>"; };
@@ -84,6 +93,7 @@
 		A3090A882822CDBD005131B1 /* TDG_Engine */ = {
 			isa = PBXGroup;
 			children = (
+				A39F63232826B9D000197BBD /* ECS */,
 				A3966CA62822F296004FBCE8 /* assets */,
 				A3090A892822CDBD005131B1 /* main.cpp */,
 				A3090A952822CDD6005131B1 /* Game.cpp */,
@@ -94,8 +104,6 @@
 				A3FB459C2823F85200A3D204 /* GameObject.hpp */,
 				A39F630F28264C3100197BBD /* Map.cpp */,
 				A39F631028264C3100197BBD /* Map.hpp */,
-				A39F631A282696E000197BBD /* ECS.cpp */,
-				A39F631B282696E000197BBD /* ECS.hpp */,
 			);
 			path = TDG_Engine;
 			sourceTree = "<group>";
@@ -119,6 +127,21 @@
 				A39F63142826513700197BBD /* enemy.png */,
 			);
 			path = assets;
+			sourceTree = "<group>";
+		};
+		A39F63232826B9D000197BBD /* ECS */ = {
+			isa = PBXGroup;
+			children = (
+				A39F631B282696E000197BBD /* ECS.hpp */,
+				A39F632D2826BB8500197BBD /* ECS.cpp */,
+				A39F631D2826A39500197BBD /* Components.cpp */,
+				A39F631E2826A39500197BBD /* Components.hpp */,
+				A39F63272826BA1800197BBD /* SpriteComponent.cpp */,
+				A39F63282826BA1800197BBD /* SpriteComponent.hpp */,
+				A39F632A2826BA2600197BBD /* PositionComponent.cpp */,
+				A39F632B2826BA2600197BBD /* PositionComponent.hpp */,
+			);
+			path = ECS;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -178,11 +201,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A39F632E2826BB8500197BBD /* ECS.cpp in Sources */,
 				A3FB459D2823F85200A3D204 /* GameObject.cpp in Sources */,
 				A39F631128264C3100197BBD /* Map.cpp in Sources */,
+				A39F631F2826A39500197BBD /* Components.cpp in Sources */,
+				A39F63292826BA1800197BBD /* SpriteComponent.cpp in Sources */,
 				A3090A8A2822CDBD005131B1 /* main.cpp in Sources */,
-				A39F631C282696E000197BBD /* ECS.cpp in Sources */,
 				A3090A972822CDD6005131B1 /* Game.cpp in Sources */,
+				A39F632C2826BA2600197BBD /* PositionComponent.cpp in Sources */,
 				A3D887A52823C16600F10A7B /* TextureManager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

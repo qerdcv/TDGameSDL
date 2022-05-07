@@ -12,9 +12,10 @@
 #include <SDL2_image/SDL_image.h>
 #include <iostream>
 
-#include "TextureManager.hpp"
-#include "GameObject.hpp"
+#include "ECS/ECS.hpp"
+#include "ECS/Components.hpp"
 #include "Map.hpp";
+#include "TextureManager.hpp"
 
 class Game {
 public:

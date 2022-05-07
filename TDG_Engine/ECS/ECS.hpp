@@ -20,6 +20,10 @@ class Entity;
 
 using ComponentID = std::size_t;
 
+constexpr std::size_t maxComponents = 32;
+
+using ComponentBitSet = std::bitset<maxComponents>;
+using ComponentArray = std::array<Component*, maxComponents>;
 
 inline ComponentID getComponentTypeID() {
     static ComponentID lastID = 0;
@@ -32,48 +36,35 @@ inline ComponentID getComponentTypeID() noexcept {
     return typeID;
 }
 
-constexpr std::size_t maxComponents = 32;
-
-using ComponentBitSet = std::bitset<maxComponents>;
-using ComponentArray = std::array<Component*, maxComponents>;
-
 class Component {
 public:
     Entity* entity;
 
-    virtual ~Component();
-    virtual void Init();
-    virtual void Update();
-    virtual void Render();
+    virtual ~Component() {};
+    virtual void Init() {};
+    virtual void Update() {};
+    virtual void Render() {};
 private:
 };
 
 class Entity {
 public:
-    void Update() {
-        for (auto& c: components) c->Update();
-        for (auto& c: components) c->Render();
-    }
-    
-    void Render() {
-        
-    }
-    
-    bool IsActive() {
-        return active;
-    };
+    void Update();
+    void Render();
+    bool IsActive();
 
-    void destroy() {
+    void Destroy() {
         active = false;
     }
     
-    template <typename T>
-    bool hasComponent() {
+    template<typename T>
+    bool HasComponent() {
         return componentBitset[getComponentID<T>()];
     }
-    
+
+
     template <typename T, typename... TArgs>
-    T& addComponent(TArgs&&... mArgs) {
+    T& AddComponent(TArgs&&... mArgs) {
         T* c(new T(std::forward<TArgs>(mArgs)...));
         c->entity = this;
         std::unique_ptr<Component> uPtr{ c };
@@ -82,13 +73,14 @@ public:
         componentArray[getComponentTypeID<T>()] = c;
         componentBitset[getComponentTypeID<T>()] = true;
         
-        c->init();
+        c->Init();
         
         return *c;
     }
 
+
     template<typename T>
-    T& getComponent() const {
+    T& GetComponent() const {
         auto ptr(componentArray[getComponentTypeID<T>()]);
         return *static_cast<T*>(ptr);
     }
@@ -104,7 +96,15 @@ private:
 class Manager {
 public:
     
+    void Update();
+
+    void Render();
+    
+    void Refresh();
+    
+    Entity& AddEntity();
+
 private:
-    std::vector<std::unique_ptr<Entity>>
+    std::vector<std::unique_ptr<Entity>> entities;
 };
 #endif /* ECS_hpp */

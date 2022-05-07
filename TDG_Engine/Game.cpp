@@ -6,13 +6,12 @@
 //
 #include "Game.hpp"
 
-
-
-GameObject* player;
-GameObject* enemy;
 Map* map;
 
 SDL_Renderer* Game::renderer = nullptr;
+
+Manager manager;
+auto& player(manager.AddEntity());
 
 Game::Game(const char* title, int x, int y, int w, int h, bool fullscreen) {
     isRunning = false;
@@ -29,10 +28,11 @@ Game::Game(const char* title, int x, int y, int w, int h, bool fullscreen) {
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
     isRunning = true;
-
-    player = new GameObject("assets/player.png", 0, 0);
-    enemy = new GameObject("assets/enemy.png", 50, 50);
     map = new Map();
+
+    player.AddComponent<PositionComponent>(100, 100);
+    player.AddComponent<SpriteComponent>("assets/player.png");
+    
 }
 
 Game::~Game() = default;
@@ -49,16 +49,19 @@ void Game::HandleEvents() {
 }
 
 void Game::Update() {
-    player->Update();
-    enemy->Update();
+    manager.Refresh();
+    manager.Update();
+    
+    if (player.GetComponent<PositionComponent>().GetXPos() > 200) {
+        player.GetComponent<SpriteComponent>().SetTexture("assets/enemy.png");
+    }
 }
 
 void Game::Render() {
     SDL_RenderClear(renderer);
-    
+
     map->Render();
-    player->Render();
-    enemy->Render();
+    manager.Render();
 
     SDL_RenderPresent(renderer);
 }
